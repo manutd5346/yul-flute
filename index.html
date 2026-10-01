@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>율플룻 스튜디오</title>
+<title>소리결 플루트 교습소</title>
 <meta name="description" content="초등부터 성인까지, 1:1 플루트 개인 레슨과 소규모 앙상블 수업">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -39,7 +39,12 @@
   .nav a { text-decoration: none; color: var(--muted); }
   .nav a:hover { color: var(--ink); }
   .header-call { font-size: .95rem; text-decoration: none; font-weight: 700; }
-  @media (max-width: 760px) { .nav { display: none; } }
+  @media (max-width: 760px) {
+    html { scroll-padding-top: 7rem; }
+    .site-header .wrap { flex-wrap: wrap; height: auto; padding-top: .8rem; row-gap: 0; }
+    .nav { order: 3; width: 100%; gap: 1.25rem; overflow-x: auto; white-space: nowrap; padding: .5rem 0 .75rem; scrollbar-width: none; }
+    .nav::-webkit-scrollbar { display: none; }
+  }
 
   /* 히어로 */
   .hero { padding: 5.5rem 0 3rem; }
@@ -280,12 +285,12 @@
 </main>
 
 <footer>
-  <div class="wrap">율플룻 플루트 교습소 · 교습소 등록번호 [010-4097-2551] · 대표 [신유진]</div>
+  <div class="wrap">소리결 플루트 교습소 · 교습소 등록번호 [번호] · 대표 [이름]</div>
 </footer>
 
 <script>
   // ▼ Apps Script 웹 앱 배포 후 받은 URL을 넣으세요. 비워두면 예시 데이터로 표시됩니다.
-  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwuLXrq-W_X9HpWCQjx_kx0yBHYkTJsUN5N5iY7B6fuGX0Nt6AgPgnISlMqPTTEOjMh5Q/exec";
+  const SCRIPT_URL = "";
 
   const DEMO = {
     courses: [
