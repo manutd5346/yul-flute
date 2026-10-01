@@ -25,7 +25,7 @@
     --wrap: 68rem;
   }
   * { box-sizing: border-box; }
-  html { scroll-behavior: smooth; scroll-padding-top: 5rem; }
+  html { scroll-padding-top: 5rem; }
   body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--sans); font-size: 1.0625rem; line-height: 1.75; word-break: keep-all; }
   a { color: inherit; }
   :focus-visible { outline: 3px solid var(--brass); outline-offset: 3px; }
@@ -124,6 +124,14 @@
   .visit dt { color: var(--muted); }
   .visit dd { margin: 0; }
 
+  /* 탭 페이지 전환 */
+  .page[hidden] { display: none; }
+  .page { animation: pageIn .35s ease-out; }
+  @keyframes pageIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+  section.block.page { border-top: none; min-height: calc(100vh - 13rem); }
+  .nav a[aria-current="page"] { color: var(--ink); font-weight: 700; box-shadow: inset 0 -2px 0 var(--brass); }
+  @media (prefers-reduced-motion: reduce) { .page { animation: none; } }
+
   footer { border-top: 1px solid var(--line); padding: 2.5rem 0 3rem; color: var(--muted); font-size: .9rem; }
 </style>
 </head>
@@ -132,7 +140,7 @@
 <!-- ▼ 학원명, 연락처, 주소 등 [ ] 표시된 부분은 실제 정보로 바꿔주세요 -->
 <header class="site-header">
   <div class="wrap">
-    <a class="logo" href="#top">소리결 플루트 교습소</a>
+    <a class="logo" href="#home">소리결 플루트 교습소</a>
     <nav class="nav" aria-label="주요 메뉴">
       <a href="#about">소개</a>
       <a href="#courses">수업 안내</a>
@@ -145,7 +153,7 @@
 </header>
 
 <main id="top">
-  <section class="hero">
+  <section class="hero page" id="home">
     <div class="wrap">
       <h1>처음 소리가 나는 날부터, 좋아하는 곡을 끝까지 부는 날까지</h1>
       <p>초등학생부터 성인까지, 한 사람의 속도에 맞춘 1:1 플루트 레슨과 소규모 앙상블 수업을 합니다. 악기가 없어도 체험 레슨부터 시작할 수 있어요.</p>
@@ -194,7 +202,7 @@
     </div>
   </section>
 
-  <section class="block" id="about">
+  <section class="block page" id="about">
     <div class="wrap two-col">
       <div>
         <h2>소리를 오래 즐길 수 있게 가르칩니다</h2>
@@ -211,7 +219,7 @@
     </div>
   </section>
 
-  <section class="block" id="courses">
+  <section class="block page" id="courses">
     <div class="wrap">
       <h2>수업 안내</h2>
       <p class="lead">모든 수업은 체험 레슨 후 수준과 목표에 맞춰 시작합니다. 시간은 상담 때 조율해요.</p>
@@ -219,7 +227,7 @@
     </div>
   </section>
 
-  <section class="block" id="notices">
+  <section class="block page" id="notices">
     <div class="wrap two-col">
       <div>
         <h2>공지</h2>
@@ -229,7 +237,7 @@
     </div>
   </section>
 
-  <section class="block apply" id="apply">
+  <section class="block apply page" id="apply">
     <div class="wrap two-col">
       <div>
         <h2>상담 신청</h2>
@@ -271,7 +279,7 @@
     </div>
   </section>
 
-  <section class="block visit" id="visit">
+  <section class="block visit page" id="visit">
     <div class="wrap two-col">
       <div><h2>오시는 길</h2></div>
       <dl>
@@ -369,6 +377,22 @@
       msg.textContent = "신청이 전송되지 않았습니다. 잠시 후 다시 시도하거나 전화로 문의해 주세요.";
     } finally { btn.disabled = false; }
   });
+
+  // 탭 전환: 주소 뒤 #이름에 맞는 페이지 하나만 보여줌 (뒤로가기도 동작)
+  const pages = [...document.querySelectorAll(".page")];
+  function showPage() {
+    const id = location.hash.slice(1);
+    const target = pages.find(p => p.id === id) || pages[0];
+    pages.forEach(p => p.hidden = p !== target);
+    document.querySelectorAll(".nav a").forEach(a => {
+      if (a.getAttribute("href") === "#" + target.id) a.setAttribute("aria-current", "page");
+      else a.removeAttribute("aria-current");
+    });
+    window.scrollTo(0, 0);
+    document.title = (target.id === "home" ? "" : target.querySelector("h2").textContent + " | ") + "소리결 플루트 교습소";
+  }
+  window.addEventListener("hashchange", showPage);
+  showPage();
 
   loadData();
 </script>
