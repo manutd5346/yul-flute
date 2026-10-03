@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>율플룻STUDIO</title>
+<meta name="description" content="초등부터 성인까지, 1:1 플루트 개인 레슨과 소규모 앙상블 수업">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Gowun+Dodum&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #EBDFCF;      /* 로고 바탕 */
+    --paper-2: #E2D3BC;    /* 상담 신청 등 한 단계 짙은 바탕 */
+    --glow: #D9CAAD;       /* 로고의 조명 빛 */
+    --ink: #3A2F1F;        /* 본문 글자 */
+    --brown: #4B3F29;      /* 로고 선 색 */
+    --brown-dark: #33291A;
+    --muted: #6B5D47;
+    --line: #D2C2A6;
+    --field: #F6F0E6;
+    --serif: "Gowun Batang", "Nanum Myeongjo", "Batang", serif;
+    --sans: "Gowun Dodum", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+    --wrap: 68rem;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-padding-top: 5rem; }
+  body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--sans); font-size: 1.0625rem; line-height: 1.75; word-break: keep-all; }
+  a { color: inherit; }
+  :focus-visible { outline: 3px solid var(--brown); outline-offset: 3px; }
+  .wrap { max-width: var(--wrap); margin: 0 auto; padding: 0 1.5rem; }
+
+  /* 헤더 */
+  .site-header { position: sticky; top: 0; z-index: 10; background: rgba(235,223,207,.94); backdrop-filter: blur(8px); border-bottom: 1px solid var(--line); }
+  .site-header .wrap { display: flex; align-items: center; justify-content: space-between; gap: 1rem; height: 4.25rem; }
+  .logo { white-space: nowrap; font-family: var(--serif); font-weight: 700; font-size: 1.25rem; text-decoration: none; }
+  .nav { display: flex; align-items: center; gap: 2rem; font-size: .97rem; white-space: nowrap; }
+  .nav a { text-decoration: none; color: var(--muted); padding: .35rem 0; }
+  .nav a:hover { color: var(--ink); }
+  .header-call { white-space: nowrap; font-size: .95rem; text-decoration: none; font-weight: 700; }
+  @media (max-width: 760px) {
+    html { scroll-padding-top: 7rem; }
+    .site-header .wrap { flex-wrap: wrap; height: auto; padding-top: .8rem; row-gap: 0; }
+    .nav { order: 3; width: 100%; gap: 1.25rem; overflow-x: auto; white-space: nowrap; padding: .5rem 0 .75rem; scrollbar-width: none; }
+    .nav::-webkit-scrollbar { display: none; }
+    .nav, .subnav ul { -webkit-mask-image: linear-gradient(to right, #000 85%, transparent); mask-image: linear-gradient(to right, #000 85%, transparent); }
+    .nav { padding-right: 2.5rem; } .subnav ul { padding-right: 2.5rem; }
+  }
+
+  /* 히어로 */
+  .hero { padding: 4.5rem 0 4rem; }
+  .hero h1 { font-family: var(--serif); font-weight: 700; font-size: clamp(2rem, 4.6vw, 3.4rem); line-height: 1.28; letter-spacing: -.02em; margin: 0 0 1.5rem; max-width: 15em; }
+  .hero p { color: var(--muted); font-size: 1.15rem; max-width: 34em; margin: 0 0 2.25rem; }
+  .actions { display: flex; flex-wrap: wrap; gap: .75rem; }
+  .btn { display: inline-block; padding: .85rem 1.6rem; border-radius: 999px; font: inherit; font-weight: 700; text-decoration: none; cursor: pointer; border: 1.5px solid var(--ink); background: transparent; color: var(--ink); }
+  .btn-primary { background: var(--brown); border-color: var(--brown); color: var(--paper); }
+  .btn-primary:hover { background: var(--brown-dark); border-color: var(--brown-dark); }
+  .btn:not(.btn-primary):hover { background: var(--ink); color: var(--paper); }
+
+  .hero-grid { display: grid; grid-template-columns: 1.5fr 1fr; gap: 3rem; align-items: center; }
+  .levels { color: var(--muted); font-size: .98rem !important; letter-spacing: .02em; margin: 0 0 1.25rem !important; }
+  .hero-logo { display: block; width: 100%; max-width: 20rem; height: auto; justify-self: center; animation: lampOn 1.4s ease-out .15s both; }
+  @keyframes lampOn { from { opacity: 0; filter: brightness(.92); } to { opacity: 1; filter: none; } }
+  @media (max-width: 860px) {
+    .hero-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .hero-logo { order: -1; max-width: 12rem; justify-self: start; }
+  }
+  @media (prefers-reduced-motion: reduce) { .hero-logo { animation: none; } }
+  @media (max-width: 420px), (max-height: 500px) { .hero { padding-top: 2.5rem; } .hero-logo { max-width: 8.5rem; } }
+
+  /* 섹션 공통 */
+  section.block { padding: 5rem 0; border-top: 1px solid var(--line); }
+  .block h2 { font-family: var(--serif); font-size: clamp(1.6rem, 3vw, 2.2rem); line-height: 1.35; margin: 0 0 1rem; }
+  .lead { color: var(--muted); max-width: 36em; margin: 0 0 2.5rem; }
+  .two-col { display: grid; grid-template-columns: 1fr 1.4fr; gap: 3rem; align-items: start; }
+  @media (max-width: 860px) { .two-col { grid-template-columns: 1fr; gap: 1.5rem; } }
+
+  /* 소개 */
+  .about-text p { margin: 0 0 1.25rem; max-width: 36em; font-family: var(--serif); font-size: 1.1rem; line-height: 1.9; }
+  .facts { margin: 2rem 0 0; display: grid; grid-template-columns: max-content 1fr; gap: .6rem 1.5rem; }
+  .facts dt { color: var(--muted); }
+  .facts dd { margin: 0; }
+
+  /* 수업 목록 */
+  .courses { list-style: none; margin: 0; padding: 0; }
+  .course { display: grid; grid-template-columns: 1.3fr 1fr auto; gap: .5rem 2rem; padding: 1.6rem 0; border-bottom: 1px solid var(--line); }
+  .course:first-child { border-top: 1.5px solid var(--ink); }
+  .course h3 { font-family: var(--serif); font-size: 1.3rem; margin: 0 0 .25rem; }
+  .course .target { color: var(--muted); font-size: .95rem; }
+  .course .desc { margin: .5rem 0 0; font-size: .98rem; }
+  .course .meta { font-size: .95rem; color: var(--muted); }
+  .course .price { font-weight: 700; white-space: nowrap; text-align: right; }
+  @media (max-width: 700px) { .course { grid-template-columns: 1fr; } .course .price { text-align: left; } }
+
+  /* 공지 */
+  .notices { list-style: none; margin: 0; padding: 0; }
+  .notice { border-bottom: 1px solid var(--line); }
+  .notice summary { display: flex; gap: 1.5rem; padding: 1.1rem 0; cursor: pointer; list-style: none; }
+  .notice summary::-webkit-details-marker { display: none; }
+  .notice time { color: var(--muted); font-size: .92rem; flex: 0 0 6.5rem; padding-top: .1rem; }
+  .notice .title { font-weight: 700; }
+  .notice[open] .title { text-decoration: underline; text-decoration-color: var(--glow); text-decoration-thickness: .35em; text-underline-offset: -.15em; }
+  .notice .body { padding: 0 0 1.4rem 8rem; color: var(--muted); white-space: pre-line; }
+  @media (max-width: 600px) { .notice summary { flex-direction: column; gap: .1rem; } .notice .body { padding-left: 0; } }
+  .status { color: var(--muted); padding: 1rem 0; }
+
+  /* 상담 신청 */
+  .apply { background: var(--paper-2); }
+  form { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem 1.5rem; }
+  .field { display: flex; flex-direction: column; gap: .4rem; }
+  .field.full { grid-column: 1 / -1; }
+  label { font-weight: 700; font-size: .95rem; }
+  .req { color: var(--brown); font-weight: 400; }
+  input, select, textarea { font: inherit; font-size: 1rem; padding: .8rem .95rem; border: 1.5px solid var(--line); border-radius: 10px; background: var(--field); color: var(--ink); }
+  input:focus, select:focus, textarea:focus { border-color: var(--ink); outline: none; }
+  textarea { min-height: 7.5rem; resize: vertical; }
+  textarea.short { min-height: 4.5rem; }
+  label .hint { display: inline-block; margin-left: .5rem; font-weight: 400; font-size: .88rem; color: var(--muted); }
+  @media (max-width: 600px) { label .hint { display: block; margin: .15rem 0 0; } }
+  .hp { position: absolute; left: -9999px; }
+  .consent { grid-column: 1 / -1; display: flex; gap: .6rem; align-items: flex-start; font-size: .93rem; color: var(--muted); }
+  .consent { font-weight: 400; }
+  .consent input { margin-top: .35rem; width: 1.1rem; height: 1.1rem; }
+  .form-foot { grid-column: 1 / -1; display: flex; align-items: center; gap: 1.25rem; flex-wrap: wrap; }
+  .form-msg { font-weight: 700; }
+  .form-msg.ok { color: #2F6B4F; }
+  .form-msg.err { color: #A33A2B; }
+  @media (max-width: 700px) { form { grid-template-columns: 1fr; } }
+
+  /* 오시는 길 */
+  .visit dl { display: grid; grid-template-columns: max-content 1fr; gap: .8rem 2rem; margin: 0; }
+  .visit dt { color: var(--muted); }
+  .visit dd { margin: 0; }
+
+  /* 탭 페이지 전환 */
+  .page[hidden] { display: none; }
+  .page { animation: pageIn .35s ease-out; }
+  @keyframes pageIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+  section.block.page { border-top: none; min-height: calc(100vh - 13rem); }
+  .nav a[aria-current="page"] { color: var(--ink); font-weight: 700; box-shadow: inset 0 -2px 0 var(--brown); }
+  @media (prefers-reduced-motion: reduce) { .page { animation: none; } }
+
+  /* 스튜디오 소개 하위 탭 */
+  .subnav { border-bottom: 1px solid var(--line); }
+  .subnav[hidden] { display: none; }
+  .subnav ul { display: flex; gap: .5rem; list-style: none; margin: 0 auto; padding: 2.5rem 1.5rem 0; overflow-x: auto; scrollbar-width: none; }
+  .subnav ul::-webkit-scrollbar { display: none; }
+  .subnav a { display: block; padding: .7rem 1.1rem; border-radius: 10px 10px 0 0; text-decoration: none; color: var(--muted); white-space: nowrap; font-size: .97rem; border: 1px solid transparent; border-bottom: none; margin-bottom: -1px; }
+  .subnav a:hover { color: var(--ink); }
+  .subnav a[aria-current="page"] { color: var(--ink); font-weight: 700; background: var(--paper); border-color: var(--line); }
+  .sub.block.page { padding-top: 3.5rem; }
+  @media (max-width: 760px) { .subnav ul { padding-top: 1rem; } .subnav a { padding: .6rem .9rem; font-size: .93rem; } .sub.block.page { padding-top: 2.5rem; } }
+
+  /* 커리큘럼 단계 */
+  .level-facts { margin: 0 0 3rem; }
+  .learn { margin: 0; padding: 0; list-style: none; border-top: 1.5px solid var(--ink); }
+  .learn li { padding: .9rem 0 .9rem 1.4rem; border-bottom: 1px solid var(--line); position: relative; }
+  .learn li::before { content: ""; position: absolute; left: .2rem; top: 1.55rem; width: .45rem; height: .45rem; border-radius: 50%; background: var(--brown); }
+  .level-courses .course:first-child { border-top: 1.5px solid var(--ink); }
+  .level-courses .course { grid-template-columns: 1fr auto; }
+  .level-courses .course .meta { grid-column: 1; }
+  .level-courses .course .price { grid-column: 2; grid-row: 1; }
+  [data-group="courses"] .two-col > div:first-child .btn { margin-top: .5rem; }
+  .list-group[hidden] { display: none; }
+
+  /* 율플룻 둘러보기 */
+  .chips { display: flex; flex-wrap: wrap; gap: .5rem; margin: 0 0 2rem; }
+  .chips button { font: inherit; font-size: .95rem; padding: .5rem 1.05rem; border-radius: 999px; border: 1.5px solid var(--line); background: transparent; color: var(--muted); cursor: pointer; }
+  .chips button:hover { color: var(--ink); border-color: var(--brown); }
+  .chips button[aria-pressed="true"] { background: var(--brown); border-color: var(--brown); color: var(--paper); font-weight: 700; }
+  .chips .count { font-weight: 400; opacity: .7; margin-left: .25rem; font-size: .85em; }
+  .gallery { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr)); gap: 1rem; }
+  .gallery button { display: block; width: 100%; padding: 0; border: 0; background: var(--paper-2); border-radius: 12px; overflow: hidden; cursor: zoom-in; }
+  .gallery img { display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: cover; transition: transform .4s ease; }
+  .gallery button:hover img { transform: scale(1.03); }
+  .gallery .cap { display: block; margin-top: .45rem; font-size: .9rem; color: var(--muted); }
+  @media (max-width: 600px) { .gallery { grid-template-columns: 1fr 1fr; gap: .6rem; } .gallery .cap { font-size: .82rem; } }
+  .lightbox { border: 0; padding: 0; background: transparent; max-width: 100vw; max-height: 100vh; width: 100vw; height: 100vh; }
+  .lightbox::backdrop { background: rgba(30,24,15,.88); }
+  .lightbox[open] { display: flex; align-items: center; justify-content: center; }
+  .lightbox figure { margin: 0; text-align: center; }
+  .lightbox img { max-width: min(92vw, 1100px); max-height: 80vh; border-radius: 8px; display: block; margin: 0 auto; }
+  .lightbox figcaption { color: #EBDFCF; margin-top: .8rem; font-size: .95rem; }
+  .lb-close, .lb-nav { position: fixed; background: rgba(235,223,207,.12); color: #EBDFCF; border: 0; border-radius: 999px; width: 3rem; height: 3rem; font-size: 1.8rem; line-height: 1; cursor: pointer; }
+  .lb-close { top: 1rem; right: 1rem; }
+  .lb-prev { left: 1rem; top: 50%; transform: translateY(-50%); }
+  .lb-next { right: 1rem; top: 50%; transform: translateY(-50%); }
+  .lb-close:hover, .lb-nav:hover { background: rgba(235,223,207,.25); }
+  @media (max-width: 600px) { .lb-nav { top: auto; bottom: 1.25rem; transform: none; } }
+
+  /* 인사말 · 교육철학 */
+  .letter .sign { margin-top: 2rem; text-align: right; color: var(--muted); }
+  .letter .sign strong { color: var(--ink); font-size: 1.15rem; margin-left: .4rem; }
+  .principles { list-style: none; margin: 2.5rem 0 0; padding: 0; border-top: 1.5px solid var(--ink); }
+  .principles li { padding: 1.4rem 0; border-bottom: 1px solid var(--line); }
+  .principles h3 { font-family: var(--serif); font-size: 1.2rem; margin: 0 0 .35rem; }
+  .principles p { margin: 0; color: var(--muted); }
+
+  /* 원장 사진 */
+  .portrait { display: block; width: 100%; max-width: 22rem; height: auto; aspect-ratio: 4 / 5; object-fit: cover; border-radius: 14px; margin: 0 0 2rem; background: var(--paper-2); }
+  @media (max-width: 860px) { .portrait { max-width: 15rem; } }
+
+  /* 이력·수상·연주 목록 */
+  .timeline { list-style: none; margin: 0; padding: 0; }
+  .timeline li { display: grid; grid-template-columns: 6rem 1fr; gap: 1.5rem; padding: 1.1rem 0; border-bottom: 1px solid var(--line); }
+  .timeline li:first-child { border-top: 1.5px solid var(--ink); }
+  .timeline .yr { color: var(--muted); font-weight: 700; }
+  .timeline .what { font-weight: 700; }
+  .timeline .sub-note { display: block; color: var(--muted); font-size: .95rem; font-weight: 400; }
+  .list-group + .list-group { margin-top: 3.5rem; }
+  .list-group h3 { font-family: var(--serif); font-size: 1.3rem; margin: 0 0 1rem; }
+  @media (max-width: 600px) { .timeline li { grid-template-columns: 1fr; gap: .2rem; } }
+
+  footer { border-top: 1px solid var(--line); padding: 2.5rem 0 3rem; color: var(--muted); font-size: .9rem; }
+</style>
+</head>
+<body>
+
+<!-- ▼ 학원명, 연락처, 주소 등 [ ] 표시된 부분은 실제 정보로 바꿔주세요 -->
+<header class="site-header">
+  <div class="wrap">
+    <a class="logo" href="#home">율플룻STUDIO</a>
+    <nav class="nav" aria-label="주요 메뉴">
+      <a href="#about" data-group="about">율플룻 소개</a>
+      <a href="#about-students" data-group="story">율플룻 이야기</a>
+      <a href="#courses" data-group="courses">단계별 커리큘럼</a>
+      <a href="#notices">공지</a>
+      <a href="#apply">상담 신청</a>
+      <a href="#visit">오시는 길</a>
+    </nav>
+    <a class="header-call" href="tel:01000000000">010.2655.7260</a>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero page" data-page="home">
+    <div class="wrap">
+      <div class="hero-grid">
+      <div>
+      <p class="levels">초등부 | 중·고등부 | 성인 | 입시 | 취미</p>
+      <h1>플룻전공 원장이 직접 지도하는 1:1 전문 레슨</h1>
+      <p>기초부터 실기, 취미까지 체계적인 커리큘럼으로! 아이들과 성인 모두를 위한 플룻 전문 교육공간</p>
+      <div class="actions">
+        <a class="btn btn-primary" href="#apply">상담 신청하기</a>
+        <a class="btn" href="#courses">커리큘럼 보기</a>
+      </div>
+      </div>
+      <img class="hero-logo" src="data:image/webp;base64,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" alt="율플룻 스튜디오 로고" width="370" height="425">
+      </div>
+    </div>
+  </section>
+
+  <nav class="subnav" id="about-subnav" data-group="about" aria-label="율플룻 소개 메뉴" hidden>
+    <ul class="wrap">
+      <li><a href="#about">인사말</a></li>
+      <li><a href="#about-philosophy">교육철학</a></li>
+      <li><a href="#about-teacher">원장 이력 & 연주활동</a></li>
+      <li><a href="#about-interior">내부 모습</a></li>
+    </ul>
+  </nav>
+
+  <nav class="subnav" id="story-subnav" data-group="story" aria-label="율플룻 이야기 메뉴" hidden>
+    <ul class="wrap">
+      <li><a href="#about-students">제자들의 성장 & 콩쿠르 수상</a></li>
+      <li><a href="#about-concerts">스튜디오 연주활동</a></li>
+      <li><a href="#about-gallery">율플룻 둘러보기</a></li>
+    </ul>
+  </nav>
+
+  <section class="block page sub" data-page="about" data-group="about">
+    <div class="wrap two-col">
+      <div>
+        <h2>인사말</h2>
+      </div>
+      <div class="about-text letter">
+        <p>안녕하세요, 율플룻 스튜디오입니다.</p>
+        <p>13년간 플룻 연주와 레슨, 오케스트라·앙상블 등 다양한 음악 활동을 하며 많은 학생들을 만나왔습니다. 그 경험을 바탕으로 아이부터 성인까지, 각자의 속도와 눈높이에 맞춰 즐겁게 배우고 성장할 수 있는 수업을 만들어가고 있습니다.</p>
+        <p>플룻을 배우며 느끼는 작은 성취와 새로운 도전이 자신감과 일상의 즐거움으로 이어질 수 있도록 따뜻하게 함께하겠습니다.</p>
+        <p class="sign">율플룻 스튜디오 원장 <strong>신유진</strong></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="block page sub" data-page="about-philosophy" data-group="about">
+    <div class="wrap two-col">
+      <div>
+        <h2>교육철학</h2>
+        <p class="lead">배우는 플룻에서, 함께 경험하는 음악으로</p>
+      </div>
+      <div>
+        <div class="about-text">
+          <p>저희는 플룻을 배우는 것에서 그치지 않고 연주하고, 도전하고, 함께하는 즐거움까지 경험할 수 있도록 합니다.</p>
+        </div>
+        <ul class="principles">
+          <li><h3>다양한 음악 경험</h3><p>개인 레슨부터 반주·앙상블, 다양한 연주 활동까지 경험합니다.</p></li>
+          <li><h3>나에게 맞는 수업</h3><p>아이부터 성인까지 각자의 성향과 속도, 목표에 맞춰 수업합니다.</p></li>
+          <li><h3>즐거운 도전과 성장</h3><p>콩쿠르와 정기연주회, 지역 행사 등 다양한 무대에 도전하며 자신감을 키웁니다.</p></li>
+          <li><h3>음악으로 이어지는 특별한 시간</h3><p>혼자 배우는 플룻을 넘어 함께 연주하고, 성취하고, 음악을 즐기는 시간을 만들어갑니다.</p></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="block page sub" data-page="about-teacher" data-group="about">
+    <div class="wrap two-col">
+      <div>
+        <img class="portrait" src="teacher.jpg" alt="율플룻 스튜디오 원장 사진" width="800" height="1000" loading="lazy" onerror="this.remove()">
+        <h2>원장 이력 & 연주활동</h2>
+        <p class="lead">신유진 원장</p>
+      </div>
+      <div>
+        <div class="list-group">
+          <h3>학력</h3>
+          <ul class="timeline">
+            <li><span class="yr">[연도]</span><span class="what">강릉원주대학교 음악학과 플루트 전공 졸업</span></li>
+          </ul>
+        </div>
+        <div class="list-group">
+          <h3>주요 연주활동</h3>
+          <ul class="timeline">
+            <li><span class="yr">[연도]</span><span class="what">코레일 Symphony Orchestra 단원 역임</span></li>
+            <li><span class="yr">[연도]</span><span class="what">로제플루트앙상블 Flute 단원</span></li>
+            <li><span class="yr">[연도]</span><span class="what">뉴원윈드오케스트라 Flute & Piccolo 단원</span></li>
+            <li><span class="yr">[연도]</span><span class="what">[공연명]<span class="sub-note">[공연장]</span></span></li>
+          </ul>
+        </div>
+        <div class="list-group">
+          <h3>지도 경력</h3>
+          <ul class="timeline">
+            <li><span class="yr">[기간]</span><span class="what">원주 삼육초등학교 기악 강사(6년 역임)</span></li>
+            <li><span class="yr">[기간]</span><span class="what">뮤직케어링 '선율' 플루트 강사(7년 역임)</span></li>
+            <li><span class="yr">[기간]</span><span class="what">원주 홈플러스 문화센터 플루트 강사</span></li>
+            <li><span class="yr">[기간]</span><span class="what">원주 꿈의 오케스트라 강사 역임</span></li>
+            <li><span class="yr">[기간]</span><span class="what">원주교육문화관 플루트 강사(현재)</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block page sub" data-page="about-interior" data-group="about">
+    <div class="wrap">
+      <h2>내부 모습</h2>
+      <p class="lead">방음 개인 레슨실과 앙상블실을 갖춘 율플룻 스튜디오의 공간입니다.</p>
+      <ul class="gallery" id="interior-grid"></ul>
+      <p class="status" id="interior-empty">사진을 준비하고 있어요.</p>
+    </div>
+  </section>
+
+  <section class="block page sub" data-page="about-students" data-group="story">
+    <div class="wrap two-col">
+      <div>
+        <h2>제자들의 성장 & 콩쿠르 수상</h2>
+        <p class="lead">한 명 한 명의 속도에 맞춰 준비해 온 결과입니다.</p>
+      </div>
+      <div>
+        <div class="list-group">
+          <h3>콩쿠르 수상</h3>
+          <ul class="timeline">
+            <li><span class="yr">[연도]</span><span class="what">[콩쿠르명] [부문] [상명]<span class="sub-note">[학생 이니셜] · [학년]</span></span></li>
+            <li><span class="yr">[연도]</span><span class="what">[콩쿠르명] [부문] [상명]<span class="sub-note">[학생 이니셜] · [학년]</span></span></li>
+          </ul>
+        </div>
+        <div class="list-group">
+          <h3>진학</h3>
+          <ul class="timeline">
+            <li><span class="yr">[연도]</span><span class="what">[학교명] 합격<span class="sub-note">[학생 이니셜]</span></span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block page sub" data-page="about-concerts" data-group="story">
+    <div class="wrap two-col">
+      <div>
+        <h2>스튜디오 연주활동</h2>
+        <p class="lead">정기 연주회와 앙상블 무대 소식입니다.</p>
+      </div>
+      <div>
+        <ul class="timeline">
+          <li><span class="yr">[연도.월]</span><span class="what">[연주회명]<span class="sub-note">[장소] · [참여 인원·내용]</span></span></li>
+          <li><span class="yr">[연도.월]</span><span class="what">[연주회명]<span class="sub-note">[장소]</span></span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="block page sub" data-page="about-gallery" data-group="story">
+    <div class="wrap">
+      <h2>율플룻 둘러보기</h2>
+      <p class="lead">레슨실과 무대, 아이들의 표정까지 율플룻의 하루를 담았어요.</p>
+      <div class="chips" id="gallery-chips" role="group" aria-label="사진 분류"></div>
+      <ul class="gallery" id="gallery-grid"></ul>
+      <p class="status" id="gallery-empty" hidden>사진을 준비하고 있어요.</p>
+    </div>
+  </section>
+
+  <nav class="subnav" id="courses-subnav" data-group="courses" aria-label="커리큘럼 단계" hidden>
+    <ul class="wrap">
+      <li><a href="#courses">유아·어린이 기초</a></li>
+      <li><a href="#courses-beginner">초급반</a></li>
+      <li><a href="#courses-intermediate">중급반</a></li>
+      <li><a href="#courses-adult">성인반</a></li>
+      <li><a href="#courses-exam">입시반</a></li>
+    </ul>
+  </nav>
+  <section class="block page sub" data-page="courses" data-group="courses">
+    <div class="wrap two-col">
+      <div>
+        <h2>유아·어린이 기초</h2>
+        <p class="lead">처음 악기를 만나는 아이들을 위한 반이에요. 플루트를 바르게 잡고 첫 소리를 내는 것부터 즐겁게 시작합니다.</p>
+        <a class="btn btn-primary" href="#apply" data-level="유아·어린이 기초">이 반 상담 신청하기</a>
+      </div>
+      <div>
+        <dl class="facts level-facts">
+          <dt>대상</dt><dd>[대상 나이, 예: 6~9세]</dd>
+          <dt>수업 방식</dt><dd>1:1 · 주 1회 [N]분</dd>
+          <dt>목표</dt><dd>놀이처럼 즐겁게 소리 내는 습관 만들기</dd>
+        </dl>
+        <div class="list-group">
+          <h3>이런 걸 배워요</h3>
+          <ul class="learn">
+            <li>악기 다루는 법과 바른 자세</li>
+            <li>머리관으로 첫 소리 내기, 짧은 호흡 연습</li>
+            <li>쉬운 동요와 짧은 곡 연주</li>
+          </ul>
+        </div>
+        <div class="list-group level-courses" data-level="유아·어린이 기초" hidden>
+          <h3>수업 · 수강료</h3>
+          <ul class="courses"></ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block page sub" data-page="courses-beginner" data-group="courses">
+    <div class="wrap two-col">
+      <div>
+        <h2>초급반</h2>
+        <p class="lead">기본 운지와 호흡을 익혀 혼자서도 쉬운 곡을 끝까지 연주할 수 있게 만드는 단계예요.</p>
+        <a class="btn btn-primary" href="#apply" data-level="초급반">이 반 상담 신청하기</a>
+      </div>
+      <div>
+        <dl class="facts level-facts">
+          <dt>대상</dt><dd>처음 시작하거나 1년 미만 배운 학생</dd>
+          <dt>수업 방식</dt><dd>1:1 · 주 1회 [N]분</dd>
+          <dt>목표</dt><dd>기본 음계와 쉬운 곡 완주</dd>
+        </dl>
+        <div class="list-group">
+          <h3>이런 걸 배워요</h3>
+          <ul class="learn">
+            <li>복식호흡과 롱톤</li>
+            <li>기본 음계, 텅잉</li>
+            <li>쉬운 연습곡과 소품</li>
+          </ul>
+        </div>
+        <div class="list-group level-courses" data-level="초급반" hidden>
+          <h3>수업 · 수강료</h3>
+          <ul class="courses"></ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block page sub" data-page="courses-intermediate" data-group="courses">
+    <div class="wrap two-col">
+      <div>
+        <h2>중급반</h2>
+        <p class="lead">음색과 표현력을 다듬고, 콩쿠르나 연주회 무대에 설 수 있는 실력을 쌓는 단계예요.</p>
+        <a class="btn btn-primary" href="#apply" data-level="중급반">이 반 상담 신청하기</a>
+      </div>
+      <div>
+        <dl class="facts level-facts">
+          <dt>대상</dt><dd>기본기를 갖춘 학생</dd>
+          <dt>수업 방식</dt><dd>1:1 · 주 1~2회 [N]분</dd>
+          <dt>목표</dt><dd>콩쿠르·연주회 준비</dd>
+        </dl>
+        <div class="list-group">
+          <h3>이런 걸 배워요</h3>
+          <ul class="learn">
+            <li>고음역과 음색 다듬기</li>
+            <li>비브라토, 다양한 아티큘레이션</li>
+            <li>에튀드와 콩쿠르 레퍼토리</li>
+          </ul>
+        </div>
+        <div class="list-group level-courses" data-level="중급반" hidden>
+          <h3>수업 · 수강료</h3>
+          <ul class="courses"></ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block page sub" data-page="courses-adult" data-group="courses">
+    <div class="wrap two-col">
+      <div>
+        <h2>성인반</h2>
+        <p class="lead">취미로 시작하는 성인을 위한 반이에요. 좋아하는 곡을 중심으로 부담 없이 오래 즐길 수 있게 수업합니다.</p>
+        <a class="btn btn-primary" href="#apply" data-level="성인반">이 반 상담 신청하기</a>
+      </div>
+      <div>
+        <dl class="facts level-facts">
+          <dt>대상</dt><dd>성인 누구나, 처음이어도 괜찮아요</dd>
+          <dt>수업 방식</dt><dd>1:1 · 주 1회 [N]분 · 평일 저녁 가능</dd>
+          <dt>목표</dt><dd>좋아하는 곡을 내 소리로 연주하기</dd>
+        </dl>
+        <div class="list-group">
+          <h3>이런 걸 배워요</h3>
+          <ul class="learn">
+            <li>무리 없는 호흡과 자세</li>
+            <li>좋아하는 곡 위주의 레퍼토리</li>
+            <li>원하면 앙상블과 연주회 참여</li>
+          </ul>
+        </div>
+        <div class="list-group level-courses" data-level="성인반" hidden>
+          <h3>수업 · 수강료</h3>
+          <ul class="courses"></ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block page sub" data-page="courses-exam" data-group="courses">
+    <div class="wrap two-col">
+      <div>
+        <h2>입시반</h2>
+        <p class="lead">예중·예고·음대 입시를 준비하는 학생을 위한 반이에요. 학교별 요강에 맞춰 곡 준비와 실기 대비를 함께합니다.</p>
+        <a class="btn btn-primary" href="#apply" data-level="입시반">이 반 상담 신청하기</a>
+      </div>
+      <div>
+        <dl class="facts level-facts">
+          <dt>대상</dt><dd>예중·예고·음대 준비생</dd>
+          <dt>수업 방식</dt><dd>1:1 · 주 [N]회 [N]분</dd>
+          <dt>목표</dt><dd>목표 학교 실기 합격</dd>
+        </dl>
+        <div class="list-group">
+          <h3>이런 걸 배워요</h3>
+          <ul class="learn">
+            <li>학교별 지정곡·자유곡 준비</li>
+            <li>스케일, 에튀드 집중 훈련</li>
+            <li>실기 모의 평가와 무대 연습</li>
+          </ul>
+        </div>
+        <div class="list-group level-courses" data-level="입시반" hidden>
+          <h3>수업 · 수강료</h3>
+          <ul class="courses"></ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block page" data-page="notices">
+    <div class="wrap two-col">
+      <div>
+        <h2>공지</h2>
+        <p class="lead">휴원 일정, 연주회, 모집 소식을 알려드립니다.</p>
+      </div>
+      <ul class="notices" id="notice-list"><li class="status">공지를 불러오는 중입니다.</li></ul>
+    </div>
+  </section>
+
+  <section class="block apply page" data-page="apply">
+    <div class="wrap two-col">
+      <div>
+        <h2>상담 신청</h2>
+        <p class="lead">남겨주신 연락처로 하루 안에 연락드립니다. 급하신 경우 <a href="tel:01000000000">010.2655.7260</a>으로 전화 주세요.</p>
+      </div>
+      <form id="apply-form" novalidate>
+        <div class="field">
+          <label for="f-name">이름 <span class="req">(필수)</span></label>
+          <input id="f-name" name="name" autocomplete="name" maxlength="30" required>
+        </div>
+        <div class="field">
+          <label for="f-phone">연락처 <span class="req">(필수)</span></label>
+          <input id="f-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="010-1234-5678" maxlength="20" required>
+        </div>        
+        <div class="field">
+          <label for="f-exp">플루트 배워본 경험</label>
+          <select id="f-exp" name="experience">
+            <option>처음이에요</option>
+            <option>6개월 미만</option>
+            <option>6개월 이상 1년 미만</option>
+            <option>1년 이상 3년 미만</option>
+            <option>3년 이상</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="f-source">교습소를 알게 된 경로</label>
+          <select id="f-source" name="source"><option>네이버 검색</option><option>블로그</option><option>인스타그램</option><option>기타</option></select>
+        </div>
+        <div class="field">
+          <label for="f-inst">현재 악기소지 여부</label>
+          <select id="f-inst" name="instrument">
+            <option>개인 악기가 있어요</option>
+            <option>악기가 없어요</option>
+            <option>대여를 희망해요</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="f-focus">중점적으로 배우고 싶은 부분</label>
+          <select id="f-focus" name="focus">
+            <option>기초부터 차근차근</option>
+            <option>콩쿠르</option>
+            <option>각종 오디션</option>
+            <option>악보 읽기</option>
+            <option>취미</option>
+            <option>입시</option>
+          </select>
+        </div>
+        <div class="field full">
+          <label for="f-schedule">희망하시는 요일 & 시간 <span class="hint">수업 가능 시간: 평일 오후 14:00 ~ 20:00 (주말 제외)</span></label>
+          <input id="f-schedule" name="schedule" maxlength="100" placeholder="예: 화·목 오후 4시 이후">
+        </div>
+        <div class="field full">
+          <label for="f-message">문의 내용</label>
+          <textarea id="f-message" name="message" maxlength="1000" placeholder="수강생 나이 등 궁금하신 점을 자유롭게 남겨주세요."></textarea>
+        </div>
+        <input type="hidden" name="course" id="f-course" value="">
+        <input class="hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <label class="consent"><input type="checkbox" id="f-consent" required> 상담 연락을 위해 이름과 연락처를 수집하는 데 동의합니다. 상담 후 1년이 지나면 삭제합니다.</label>
+        <div class="form-foot">
+          <button class="btn btn-primary" type="submit" id="f-submit">상담 신청하기</button>
+          <span class="form-msg" id="form-msg" role="status" aria-live="polite"></span>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <section class="block visit page" data-page="visit">
+    <div class="wrap two-col">
+      <div><h2>오시는 길</h2></div>
+      <dl>
+        <dt>주소</dt><dd>강원 원주시 황금로 24 케이리치타워 101호<br><a href="https://map.naver.com/p/entry/place/1864967181?placePath=%2Fhome%3Fentry%3Dplt%26from%3Dmap%26fromPanelNum%3D1%26additionalHeight%3D76%26timestamp%3D202610031022%26locale%3Dko%26svcName%3Dmap_pcv5&searchType=place&lng=127.9891825&lat=37.3268226&c=15.00,0,0,0,dh" target="_blank" rel="noopener">네이버 지도에서 보기</a></dd>
+        <dt>운영 시간</dt><dd>평일 13:00–21:00, 토요일 10:00–17:00<br>일요일·공휴일 휴무</dd>
+        <dt>전화</dt><dd><a href="tel:01000000000">010.2655.7260</a></dd>
+        <dt>주차</dt><dd>[건물 주차 가능 여부]</dd>
+      </dl>
+    </div>
+  </section>
+</main>
+
+<dialog class="lightbox" id="lightbox" aria-label="사진 크게 보기">
+  <button class="lb-close" type="button" aria-label="닫기">×</button>
+  <button class="lb-nav lb-prev" type="button" aria-label="이전 사진">‹</button>
+  <figure><img id="lb-img" alt=""><figcaption id="lb-cap"></figcaption></figure>
+  <button class="lb-nav lb-next" type="button" aria-label="다음 사진">›</button>
+</dialog>
+
+<footer>
+  <div class="wrap">율플룻 스튜디오 · 교습소 등록번호 신고 제 2022-19호 · 대표 신유진</div>
+</footer>
+
+<script>
+  // ▼ Apps Script 웹 앱 배포 후 받은 URL을 넣으세요. 비워두면 예시 데이터로 표시됩니다.
+  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbziY9w_fnZJGG56YOUdHgoutKuhsw_FLM7VEZqG7wByZwJKGW5ygBc8_EzRsnrGzngHgQ/exec";
+
+  // ▼ 사진 (율플룻 둘러보기, 내부 모습)
+  //   GitHub 저장소의 photos/폴더이름 안에 사진을 올리면 자동으로 나타납니다. 코드 수정 필요 없음.
+  //   파일 이름을 "연말 연주회.jpg"처럼 지으면 그 이름이 사진 설명으로 나와요.
+  //   (IMG_1234.jpg처럼 카메라가 붙인 이름은 설명 없이 표시)
+  const GITHUB_REPO = "manutd5346/yul-flute";
+  const INTERIOR = { name: "내부 모습", folder: "interior" };
+  const GALLERY_CATS = [
+    { name: "레슨 모습",       folder: "lesson" },
+    { name: "학생 연주 모습",  folder: "performance" },
+    { name: "악기 사진",       folder: "instruments" },
+    { name: "선생님과 학생",   folder: "teacher-students" },
+    { name: "아이들 모습",     folder: "kids" },
+  ];
+
+  const DEMO = {
+    courses: [
+      { "단계": "초급반", "과정명": "입문 개인 레슨", "대상": "초등 3학년 이상, 처음 배우는 분", "수업방식": "1:1 · 주 1회 50분", "수강료": "월 20만원", "설명": "호흡, 자세, 기본 음계부터 쉬운 곡 연주까지." },
+      { "단계": "입시반", "과정명": "심화·입시 레슨", "대상": "예중·예고·음대 준비생", "수업방식": "1:1 · 주 1~2회 60분", "수강료": "상담 후 안내", "설명": "입시 곡 준비, 에튀드, 실기 모의 평가." },
+      { "단계": "성인반", "과정명": "성인 취미반", "대상": "성인 누구나", "수업방식": "1:1 · 주 1회 50분 · 평일 저녁 가능", "수강료": "월 22만원", "설명": "좋아하는 곡 위주로, 부담 없이 오래 즐길 수 있게." },
+      { "단계": "중급반", "과정명": "플루트 앙상블", "대상": "레슨 6개월 이상 수강생", "수업방식": "4~6명 · 격주 토요일 90분", "수강료": "월 8만원", "설명": "합주하며 듣는 귀를 키우고 연말 연주회에 참여해요." }
+    ],
+    notices: [
+      { "날짜": "2026-09-20", "제목": "추석 연휴 휴원 안내", "내용": "10월 3일(토)부터 10월 9일(금)까지 휴원합니다.\n보강 일정은 개별 연락드릴게요." },
+      { "날짜": "2026-09-01", "제목": "12월 정기 연주회 참가 신청", "내용": "참가를 원하는 수강생은 9월 말까지 선생님께 말씀해 주세요." }
+    ]
+  };
+
+  const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+
+  function renderCourses(list) {
+    // 시트 '수업' 탭의 '단계' 열 값(예: 초급반)과 같은 반 페이지에 표시. 해당 행이 없으면 그 칸은 숨김.
+    document.querySelectorAll(".level-courses").forEach(box => {
+      const rows = list.filter(c => String(c["단계"] || "").trim() === box.dataset.level);
+      box.hidden = !rows.length;
+      box.querySelector(".courses").innerHTML = rows.map(c => `
+        <li class="course">
+          <div><h3>${esc(c["과정명"])}</h3>${c["설명"] ? `<p class="desc">${esc(c["설명"])}</p>` : ""}</div>
+          <div class="meta">${esc([c["대상"], c["수업방식"]].filter(Boolean).join(" · "))}</div>
+          <div class="price">${esc(c["수강료"])}</div>
+        </li>`).join("");
+    });
+  }
+
+  function renderNotices(list) {
+    const el = document.getElementById("notice-list");
+    if (!list.length) { el.innerHTML = '<li class="status">새 공지가 없습니다.</li>'; return; }
+    el.innerHTML = list.map(n => `
+      <li><details class="notice">
+        <summary><time>${esc(n["날짜"])}</time><span class="title">${esc(n["제목"])}</span></summary>
+        <div class="body">${esc(n["내용"])}</div>
+      </details></li>`).join("");
+  }
+
+  async function loadData() {
+    if (!SCRIPT_URL) { renderCourses(DEMO.courses); renderNotices(DEMO.notices); return; }
+    try {
+      const res = await fetch(SCRIPT_URL);
+      const data = await res.json();
+      renderCourses(data.courses || []);
+      renderNotices(data.notices || []);
+    } catch (e) {
+      document.getElementById("notice-list").innerHTML = '<li class="status">공지를 불러오지 못했습니다.</li>';
+    }
+  }
+
+  document.getElementById("apply-form").addEventListener("submit", async e => {
+    e.preventDefault();
+    const f = e.target, msg = document.getElementById("form-msg"), btn = document.getElementById("f-submit");
+    const name = f.name.value.trim(), phone = f.phone.value.trim();
+    msg.className = "form-msg err";
+    if (!name) { msg.textContent = "이름을 입력해 주세요."; f.name.focus(); return; }
+    if (!/^[0-9\-+ ]{9,20}$/.test(phone)) { msg.textContent = "연락처를 숫자로 입력해 주세요. 예: 010-1234-5678"; f.phone.focus(); return; }
+    if (!document.getElementById("f-consent").checked) { msg.textContent = "개인정보 수집에 동의해야 신청할 수 있습니다."; return; }
+
+    const payload = { name, phone, course: f.course.value, experience: f.experience.value, source: f.source.value, instrument: f.instrument.value, focus: f.focus.value, schedule: f.schedule.value.trim(), message: f.message.value.trim(), website: f.website.value };
+    btn.disabled = true; msg.className = "form-msg"; msg.textContent = "보내는 중…";
+    try {
+      if (SCRIPT_URL) {
+        // Content-Type을 지정하지 않아야 text/plain으로 전송되어 CORS 사전요청 없이 Apps Script에 도달합니다.
+        const res = await fetch(SCRIPT_URL, { method: "POST", body: JSON.stringify(payload) });
+        const data = await res.json();
+        if (!data.ok) throw new Error(data.error || "fail");
+      }
+      f.reset(); f.course.value = "";
+      msg.className = "form-msg ok";
+      msg.textContent = SCRIPT_URL ? "상담 신청이 접수되었습니다. 곧 연락드릴게요." : "(예시 모드) 실제로 전송되지 않았습니다.";
+    } catch (err) {
+      msg.className = "form-msg err";
+      msg.textContent = "신청이 전송되지 않았습니다. 잠시 후 다시 시도하거나 전화로 문의해 주세요.";
+    } finally { btn.disabled = false; }
+  });
+
+  // '이 반 상담 신청하기'를 누르면 상담 신청서의 '관심 있는 반'을 미리 선택
+  document.addEventListener("click", e => {
+    const a = e.target.closest("a[data-level]");
+    if (a) document.getElementById("f-course").value = a.dataset.level;
+  });
+
+  // 사진: 폴더에서 목록 불러오기 + 분류 버튼 + 크게 보기
+  let galleryCat = GALLERY_CATS[0].name, shown = [], lbIndex = 0, galleryState = "idle";
+  const PHOTOS = {};   // 분류 이름 → [{ src, caption, cat }]
+  const lb = document.getElementById("lightbox");
+  const IMG_RE = /\.(jpe?g|png|webp|gif|avif)$/i;
+  const CAMERA_NAME = /^(img|dsc|pxl|kakaotalk|screenshot|스크린샷|photo|image)|^[\d\s_.()-]+$/i;
+
+  async function loadPhotos() {
+    if (galleryState !== "idle") return;
+    galleryState = "loading"; renderGallery(); renderInterior();
+    let cached = null;
+    try { cached = JSON.parse(sessionStorage.getItem("yul-photos") || "null"); } catch (e) {}
+    if (cached && Date.now() - cached.t < 10 * 60 * 1000) {
+      Object.assign(PHOTOS, cached.photos);
+    } else {
+      await Promise.all([...GALLERY_CATS, INTERIOR].map(async c => {
+        try {
+          const res = await fetch(`https://api.github.com/repos/${GITHUB_REPO}/contents/photos/${c.folder}`);
+          const files = res.ok ? await res.json() : [];
+          PHOTOS[c.name] = files.filter(f => f.type === "file" && IMG_RE.test(f.name))
+            .sort((a, b) => a.name.localeCompare(b.name, "ko", { numeric: true }))
+            .map(f => {
+              const base = f.name.replace(IMG_RE, "");
+              return { cat: c.name, src: `photos/${c.folder}/${encodeURIComponent(f.name)}`, caption: CAMERA_NAME.test(base) ? "" : base.replace(/^\d{1,2}[\s._-]+/, "").replace(/[_-]+/g, " ") };
+            });
+        } catch (e) { PHOTOS[c.name] = []; }
+      }));
+      try { sessionStorage.setItem("yul-photos", JSON.stringify({ t: Date.now(), photos: PHOTOS })); } catch (e) {}
+    }
+    galleryState = "done"; renderGallery(); renderInterior();
+  }
+
+  function photoItems(list) {
+    return list.map((p, i) => `
+      <li><button type="button" data-i="${i}" aria-label="${esc(p.caption || p.cat)} 크게 보기">
+        <img src="${p.src}" alt="${esc(p.caption || p.cat)}" loading="lazy"></button>
+        ${p.caption ? `<span class="cap">${esc(p.caption)}</span>` : ""}</li>`).join("");
+  }
+  function emptyText() { return galleryState === "loading" ? "사진을 불러오는 중입니다." : "사진을 준비하고 있어요."; }
+
+  function renderGallery() {
+    document.getElementById("gallery-chips").innerHTML = GALLERY_CATS.map(c => {
+      const n = (PHOTOS[c.name] || []).length;
+      return `<button type="button" data-cat="${esc(c.name)}" aria-pressed="${c.name === galleryCat}">${esc(c.name)}${n ? `<span class="count">${n}</span>` : ""}</button>`;
+    }).join("");
+    const list = PHOTOS[galleryCat] || [];
+    document.getElementById("gallery-grid").innerHTML = photoItems(list);
+    const empty = document.getElementById("gallery-empty");
+    empty.hidden = list.length > 0; empty.textContent = emptyText();
+  }
+  function renderInterior() {
+    const list = PHOTOS[INTERIOR.name] || [];
+    document.getElementById("interior-grid").innerHTML = photoItems(list);
+    const empty = document.getElementById("interior-empty");
+    empty.hidden = list.length > 0; empty.textContent = emptyText();
+  }
+  // 사진이 있는 탭을 처음 열 때만 목록을 불러옴
+  function maybeLoadPhotos() { if (["#about-gallery", "#about-interior"].includes(location.hash)) loadPhotos(); }
+  window.addEventListener("hashchange", maybeLoadPhotos);
+  maybeLoadPhotos();
+
+  function openPhoto(i) {
+    lbIndex = (i + shown.length) % shown.length;
+    const p = shown[lbIndex];
+    document.getElementById("lb-img").src = p.src;
+    document.getElementById("lb-img").alt = p.caption || p.cat;
+    document.getElementById("lb-cap").textContent = p.caption || "";
+    lb.querySelectorAll(".lb-nav").forEach(b => b.hidden = shown.length < 2);
+    if (!lb.open) lb.showModal();
+  }
+  document.getElementById("gallery-chips").addEventListener("click", e => {
+    const b = e.target.closest("button[data-cat]");
+    if (b) { galleryCat = b.dataset.cat; renderGallery(); }
+  });
+  document.getElementById("gallery-grid").addEventListener("click", e => {
+    const b = e.target.closest("button[data-i]");
+    if (b) { shown = PHOTOS[galleryCat] || []; openPhoto(+b.dataset.i); }
+  });
+  document.getElementById("interior-grid").addEventListener("click", e => {
+    const b = e.target.closest("button[data-i]");
+    if (b) { shown = PHOTOS[INTERIOR.name] || []; openPhoto(+b.dataset.i); }
+  });
+  lb.querySelector(".lb-close").onclick = () => lb.close();
+  lb.querySelector(".lb-prev").onclick = () => openPhoto(lbIndex - 1);
+  lb.querySelector(".lb-next").onclick = () => openPhoto(lbIndex + 1);
+  lb.addEventListener("click", e => { if (e.target === lb) lb.close(); });
+  lb.addEventListener("keydown", e => {
+    if (e.key === "ArrowLeft") openPhoto(lbIndex - 1);
+    if (e.key === "ArrowRight") openPhoto(lbIndex + 1);
+  });
+  let touchX = null;
+  lb.addEventListener("touchstart", e => { touchX = e.touches[0].clientX; }, { passive: true });
+  lb.addEventListener("touchend", e => {
+    if (touchX === null) return;
+    const dx = e.changedTouches[0].clientX - touchX; touchX = null;
+    if (Math.abs(dx) > 50) openPhoto(lbIndex + (dx < 0 ? 1 : -1));
+  });
+  renderGallery(); renderInterior();
+
+  // 탭 전환: 주소 뒤 #이름에 맞는 페이지 하나만 보여줌 (뒤로가기도 동작)
+  const pages = [...document.querySelectorAll(".page")];
+  function showPage() {
+    const id = location.hash.slice(1);
+    const target = pages.find(p => p.dataset.page === id) || pages[0];
+    pages.forEach(p => p.hidden = p !== target);
+    const group = target.dataset.group;
+    document.querySelectorAll(".nav a").forEach(a => {
+      const on = a.getAttribute("href") === "#" + target.dataset.page || (group && a.dataset.group === group);
+      if (on) a.setAttribute("aria-current", "page"); else a.removeAttribute("aria-current");
+    });
+    document.querySelectorAll(".subnav").forEach(sn => {
+      sn.hidden = sn.dataset.group !== group;
+      sn.querySelectorAll("a").forEach(a => {
+        if (a.getAttribute("href") === "#" + target.dataset.page) a.setAttribute("aria-current", "page");
+        else a.removeAttribute("aria-current");
+      });
+    });
+    // 모바일: 선택된 메뉴·하위 탭이 화면 밖에 있으면 옆으로 밀어서 보이게
+    document.querySelectorAll(".nav, .subnav ul").forEach(bar => {
+      const cur = bar.querySelector('[aria-current="page"]');
+      if (cur && bar.scrollWidth > bar.clientWidth) bar.scrollLeft = cur.offsetLeft - bar.offsetLeft - 24;
+    });
+    window.scrollTo(0, 0);
+    requestAnimationFrame(() => window.scrollTo(0, 0));
+    document.title = (target.dataset.page === "home" ? "" : target.querySelector("h2").textContent + " | ") + "율플룻 스튜디오";
+  }
+  if ("scrollRestoration" in history) history.scrollRestoration = "manual";
+  window.addEventListener("hashchange", showPage);
+  window.addEventListener("load", () => window.scrollTo(0, 0));
+  showPage();
+
+  loadData();
+</script>
+</body>
+</html>
